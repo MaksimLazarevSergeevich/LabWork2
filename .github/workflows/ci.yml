@@ -1,0 +1,48 @@
+name: Build and Test Game
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y g++ cmake libgtest-dev
+
+      - name: Build project
+        run: |
+          make
+
+      - name: Run tests
+        run: |
+          make test
+          ./test-game
+
+      - name: Clean up
+        run: |
+          make cleanall
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-logs
+          path: |
+            ./
+            !*.o
+            !*.a
+            !*.cpp
+            !*.h
