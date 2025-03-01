@@ -1,8 +1,8 @@
-#include "include/hello.h"
+#include "include/game_menu.h"
 
 int main()
 {
-    Hello a;
-    std::cout << a.sayHello() << '\n';
+    GameMenu ger;
+    ger.showMainMenu();
     return 0;
 }
