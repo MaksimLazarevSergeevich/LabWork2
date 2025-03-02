@@ -185,3 +185,13 @@ std::string GameMenu::getCurrentHero()
 {
     return currentHero;
 }
+
+int GameMenu::getPointChanger()
+{
+    return _pointChanger;
+}
+
+void GameMenu::setPointChanger(int x)
+{
+    _pointChanger = x;
+}
