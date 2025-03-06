@@ -1,7 +1,7 @@
 #include "include/hero.h"
 
-Hero::Hero(std::string name, int damage, int maxEnergy, int maxHealth): _name(name), _defoltDamage(damage), _energy(maxEnergy), _maxHealth(maxHealth)
-{}
+Hero::Hero(std::string name, int damage, int maxEnergy, int maxHealth) 
+    : _name(name), _maxHealth(maxHealth), _energy(maxEnergy), _defoltDamage(damage) {}
 
 void Hero::equipWeapon(Weapon* newWeapon)
 {
@@ -13,11 +13,24 @@ int Hero::getHealth()
     return _health;
 }
 
-void Hero::attackWithWeapon(Hero& enemyHero)
+void Hero::attackWithWeapon(Hero* enemyHero)
 {
-    enemyHero.TakeDamage(_defoltDamage + _weapon->getDamageWeapon());
-    _energy -= _weapon->getEnergyWeaponCost();
-    std::cout << _name << " attack with " << _weapon->getNameWeapon() << "\n"; 
+    if (_energy >= _weapon->getEnergyWeaponCost())
+    {
+        std::cout << _name << "\e[1;31m  attack with  \e[0m" << _weapon->getNameWeapon() << " " << enemyHero->getName() << '\n'; 
+        enemyHero->TakeDamage(_defoltDamage + _weapon->getDamageWeapon());
+        spendEnergy(_weapon->getEnergyWeaponCost());
+        setIsPlayerGo(true);
+    }
+    else
+    {
+        std::cout << "Not enough energy\n";
+    }
+}
+
+void Hero::defoltAttack(Hero* enemyHero)
+{
+    enemyHero->TakeDamage(_defoltDamage);
 }
 
 void Hero::TakeDamage(int damage)
@@ -27,7 +40,7 @@ void Hero::TakeDamage(int damage)
     {
         _health = 0;
     }
-    std::cout << _name << " теперь имеет " << _health << " здоровья\n"; 
+    std::cout << _name << "\e[1;31m  takes  \e[0m" << damage << " damage and now has " << _health << " health\n"; 
 }
 
 void Hero::heal(int amount) {
@@ -36,7 +49,7 @@ void Hero::heal(int amount) {
     {
         _health = _maxHealth;
     }
-    std::cout << _name << " восстанавливает здоровье и теперь имеет " << _health << " здоровья.\n";
+    std::cout << _name << " restores " << amount << " hp and now has " << _health << " health\n";
 }
 
 void Hero::restoreEnergy(int pointEnergy)
@@ -46,7 +59,7 @@ void Hero::restoreEnergy(int pointEnergy)
     {
         _energy = _maxEnergy;
     }
-    std::cout << _name << " имеет " << _energy << '\n';
+    std::cout << _name << " restores " << pointEnergy << " energy and now has " << _energy << " energy\n";
 }
 
 void Hero::spendEnergy(int pointEnergy)
@@ -56,7 +69,7 @@ void Hero::spendEnergy(int pointEnergy)
     {
         _energy = 0;
     } 
-    std::cout << _name << " имеет " << _energy << '\n';
+    std::cout << _name << " lost " << pointEnergy << " energy and now has " << _energy << " energy\n";
 }
 
 bool Hero::isAlive()
@@ -74,9 +87,19 @@ std::string Hero::getName()
     return _name;
 }
 
-void Hero::specialAbility(Hero& enemyHero)
+void Hero::specialAbility(Hero* enemyHero)
 {
     std::cout << "Ultimate\n";
+}
+
+bool Hero::getIsPlayerGo()
+{
+    return _isPlayerGo;
+}
+
+void Hero::setIsPlayerGo(bool isGo)
+{
+    _isPlayerGo = isGo;
 }
 
 Hero::~Hero()

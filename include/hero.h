@@ -10,12 +10,14 @@ private:
     int _energy;
     int _maxEnergy;
     int _defoltDamage;
+    bool _isPlayerGo;
     Weapon* _weapon = nullptr;
 public:
     Hero(std::string, int, int, int);
     virtual ~Hero(); /*YEs, virtual destructer...наследованные классы нужно очищать, ибо сами выделяем память*/
-    void attackWithWeapon(Hero&);
-    virtual void specialAbility(Hero&);
+    void attackWithWeapon(Hero*);
+    void defoltAttack(Hero*);
+    virtual void specialAbility(Hero*);
     void equipWeapon(Weapon*);
     void TakeDamage(int);
     void heal(int);
@@ -25,6 +27,8 @@ public:
     int getHealth();
     int getEnergy();
     std::string getName();
+    bool getIsPlayerGo();
+    void setIsPlayerGo(bool);
 };
 
 #endif
