@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      "*"
+      - feature/core-of-the-game
   pull_request:
     branches:
       - main
