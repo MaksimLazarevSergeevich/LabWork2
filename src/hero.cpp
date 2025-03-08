@@ -1,7 +1,8 @@
 #include "include/hero.h"
 
-Hero::Hero(std::string name, int damage, int maxEnergy, int maxHealth) 
-    : _name(name), _maxHealth(maxHealth), _energy(maxEnergy), _defoltDamage(damage) {}
+Hero::Hero(std::string name, int maxHealth, int maxEnergy, int defoltDamage):
+    _name(name), _maxHealth(maxHealth), _maxEnergy(maxEnergy), _defoltDamage(defoltDamage)
+{}
 
 void Hero::equipWeapon(Weapon* newWeapon)
 {
@@ -17,10 +18,13 @@ void Hero::attackWithWeapon(Hero* enemyHero)
 {
     if (_energy >= _weapon->getEnergyWeaponCost())
     {
-        std::cout << _name << "\e[1;31m  attack with  \e[0m" << _weapon->getNameWeapon() << " " << enemyHero->getName() << '\n'; 
+        std::cout << _name << " attack with " << _weapon->getNameWeapon() << " " << enemyHero->getName() << '\n'; 
         enemyHero->TakeDamage(_defoltDamage + _weapon->getDamageWeapon());
         spendEnergy(_weapon->getEnergyWeaponCost());
-        setIsPlayerGo(true);
+        _weapon->buffComboMultiplicate();
+        std::cout << "The " << _name << "'s weapon has been buffed and now has " << _weapon->getDamageWeapon() << " damage and costs " << _weapon->getEnergyWeaponCost() << " energy\n";
+        _isPlayerGo = true;
+        std::cout << '\n';
     }
     else
     {
@@ -30,7 +34,10 @@ void Hero::attackWithWeapon(Hero* enemyHero)
 
 void Hero::defoltAttack(Hero* enemyHero)
 {
+    std::cout << _name << " attack " << enemyHero->getName() << '\n';
     enemyHero->TakeDamage(_defoltDamage);
+    _isPlayerGo = true;
+    std::cout << '\n';
 }
 
 void Hero::TakeDamage(int damage)
@@ -40,7 +47,7 @@ void Hero::TakeDamage(int damage)
     {
         _health = 0;
     }
-    std::cout << _name << "\e[1;31m  takes  \e[0m" << damage << " damage and now has " << _health << " health\n"; 
+    std::cout << _name << " takes " << damage << " damage and now has " << _health << " health\n"; 
 }
 
 void Hero::heal(int amount) {
@@ -103,4 +110,4 @@ void Hero::setIsPlayerGo(bool isGo)
 }
 
 Hero::~Hero()
-{std::cout << "DestructHero\n";}
+{}

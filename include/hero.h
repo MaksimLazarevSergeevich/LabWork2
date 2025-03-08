@@ -5,11 +5,11 @@ class Hero
 {
 private:
     std::string _name;
-    int _health;
     int _maxHealth;
-    int _energy;
     int _maxEnergy;
     int _defoltDamage;
+    int _health = _maxHealth;
+    int _energy = _maxEnergy;
     bool _isPlayerGo;
     Weapon* _weapon = nullptr;
 public:
