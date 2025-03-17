@@ -2,25 +2,25 @@
 
 void GameMenu::showMainMenu()
 {
-    std::string choice;
-    while(true)
+    std::string choice; // User selection
+    while(true) // As long as there is no break, the main menu will be shown
     {
-        std::cout << "\n--- Главное меню ---\n";
-        std::cout << "1. Выбрать персонажа\n";
-        std::cout << "2. Выбрать оружие\n";
-        std::cout << "3. Выбрать предметы\n";
-        std::cout << "4. Начать игру\n";
-        std::cout << "5. Выйти\n";
-        std::cout << "Введите номер действия: ";
+        std::cout << "\n--- Main menu ---\n";
+        std::cout << "1. Choose a hero\n";
+        std::cout << "2. Choose a weapon\n";
+        std::cout << "3. Choose items\n";
+        std::cout << "4. Start a game\n";
+        std::cout << "5. Quit\n";
+        std::cout << "Enter the action number: ";
         std::cin >> choice;
         if (choice == "5")
         {
-            setPointChanger(-1);
+            setPointChanger(-1); // If the user enters 5, the game ends
             break;
         }
         else if (choice == "4")
         {
-            checkReady();
+            checkReady(); // If all is well, the point will become 1 and break will be called
             if (getPointChanger() == 1)
             {
                 break;
@@ -28,44 +28,45 @@ void GameMenu::showMainMenu()
         }
         else if (choice == "3")
         {
-            chooseItem();
+            chooseItem(); // The player selects the items
         }
         else if (choice == "2")
         {
-            chooseWeapon();
+            chooseWeapon(); // The player chooses a weapon
         }
         else if (choice == "1")
         {
-            chooseHero();
+            chooseHero(); // The player chooses a hero
         }
         else
         {
-            std::cout << "Неверный ввод" << "\n";
+            std::cout << "\nIncorrect input" << "\n";
         }
     }
 }
 
+// Method for character selection
 void GameMenu::chooseHero()
 {
-    std::cout << "\nВыбор персонажа:\n";
-    std::cout << "1. Воин\n2. Маг\n3. Лучник\n4. Назад\n";
+    std::cout << "\nChoosing a hero:\n";
+    std::cout << "1. Berserk\n2. Mage\n3. Archer\n4. Back\n";
     std::string choice;
-    while(true)
+    while(true) // Until the user selects a hero or goes backwards
     {
         std::cin >> choice;
         if (choice == "1")
         {
-            currentHero = "Воин";
+            _currentHero = "Berserk";
             break;
         }
         else if (choice == "2")
         {
-            currentHero = "Маг";
+            _currentHero = "Mage";
             break;
         }
         else if (choice == "3")
         {
-            currentHero = "Лучник";
+            _currentHero = "Archer";
             break;
         }
         else if (choice == "4")
@@ -74,32 +75,33 @@ void GameMenu::chooseHero()
         }
         else
         {
-            std::cout << "Неверный ввод\n"; 
+            std::cout << "\nIncorrect input\n"; 
         }
     }
-    std::cout << "Теперь ваш герой " << currentHero << "\n";
+    std::cout << "\nNow your hero is " << _currentHero << "\n";
 }
 
+// Method for selecting an Items
 void GameMenu::chooseItem()
 {
-    currentItems.clear();
-    std::cout << "\nВыбор предметов (до 3):\n";
-    std::cout << "1. Зелье здоровья\n2. Свиток огня\n3. Зелье энергии\n4. Выход\n";
+    _currentItems.clear(); // Clearing out old items
+    std::cout << "\nChoice of items (up to 3):\n";
+    std::cout << "1. Health potion\n2. Debuff bomb\n3. Energy potion\n4. Back\n";
     std::string choice;
-    while (currentItems.size() < 3)
+    while (_currentItems.size() < 3) // Maximum number of items 3
     {
         std::cin >> choice;
         if (choice == "1")
         {
-            currentItems.push_back("Зелье здоровья");
+            _currentItems.push_back("Health potion");
         }
         else if (choice == "2")
         {
-            currentItems.push_back("Свиток огня");
+            _currentItems.push_back("Debuff bomb");
         }
         else if (choice == "3")
         {
-            currentItems.push_back("Зелье энергии");
+            _currentItems.push_back("Energy potion");
         }
         else if (choice == "4")
         {
@@ -107,44 +109,45 @@ void GameMenu::chooseItem()
         }
         else
         {
-            std::cout << "Неверный ввод\n";
+            std::cout << "\nIncorrect input\n";
         }
     }
-    if (!currentItems.empty())
+    if (!_currentItems.empty())
     {
-        std::cout << "Теперь ваши предметы - это:\n";
-        for (size_t i = 0; i < currentItems.size(); i++)
+        std::cout << "\nNow your items are:\n";
+        for (size_t i = 0; i < _currentItems.size(); i++) // output current items
         {
-            std::cout << currentItems[i] << "\n";
+            std::cout << _currentItems[i] << "\n";
         }
     }
     else
     {
-        std::cout << "Ваш инвентарь пуст\n";
+        std::cout << "\nYour inventory is empty\n";
     }
 }
 
+// Method for selecting a weapon
 void GameMenu::chooseWeapon()
 {
-    std::cout << "\nВыбор оружия:\n";
-    std::cout << "1. Меч\n2. Посох\n3. Лук\n4. Back\n";
+    std::cout << "\nChoice of weapon:\n";
+    std::cout << "1. Sword\n2. Magic staff\n3. Bow\n4. Back\n";
     std::string choice;
-    while(true)
+    while(true) // Until the user selects a weapon or goes backwards
     {
         std::cin >> choice;
         if (choice == "1")
         {
-            currentWeapon = "Меч";
+            _currentWeapon = "Sword";
             break;
         }
         else if (choice == "2")
         {
-            currentWeapon = "Посох";
+            _currentWeapon = "Magic staff";
             break;
         }
         else if (choice == "3")
         {
-            currentWeapon = "Лук";
+            _currentWeapon = "Bow";
             break;
         }
         else if (choice == "4")
@@ -153,45 +156,62 @@ void GameMenu::chooseWeapon()
         }
         else
         {
-            std::cout << "Неверный ввод\n";
+            std::cout << "\nIncorrect input\n";
         }
     }
-    std::cout << "Теперь ваше оружие: " << currentWeapon << "\n";
+    std::cout << "\nNow your weapon is " << _currentWeapon << "\n";
 }
 
+// Checks if the player has selected a hero and weapon
 void GameMenu::checkReady()
 {
-    if (currentHero.empty() || currentWeapon.empty())
+    if (_currentHero.empty() || _currentWeapon.empty())
     {
-        std::cout << "Вам нужен герой и оружие\n";
+        std::cout << "\nYou need a hero and a weapon\n";
     }
     else
     {
-        std::cout << "Начать с " << currentHero << " и " << currentWeapon << "\n";
-        if (!currentItems.empty())
+        // If all is well, it outputs all elections and then changes the point to 1.
+        std::cout << "\nStart with " << _currentHero << " and " << _currentWeapon << "\n";
+        if (!_currentItems.empty())
         {
-            std::cout << "Ваши предметы: ";
-            for (auto &item: currentItems)
+            std::cout << "Your items:\n";
+            for (std::string item: _currentItems)
             {
-                std::cout << item << " ";
+                std::cout << item << "\n";
             }
             std::cout << "\n";
         }
-        setPointChanger(1);
+        setPointChanger(1); // Now, player can fight
     }
 }
 
+// Return Hero
 std::string GameMenu::getCurrentHero()
 {
-    return currentHero;
+    return _currentHero;
 }
 
+// Return point
 int GameMenu::getPointChanger()
 {
     return _pointChanger;
 }
 
+// Set point
 void GameMenu::setPointChanger(int x)
 {
     _pointChanger = x;
+}
+
+// Return Weapon
+std::string GameMenu::getCurrentWeapon()
+{
+    return _currentWeapon;
+}
+
+// Return Items
+std::vector<std::string> GameMenu::getItems()
+{
+    return _currentItems;
 }
