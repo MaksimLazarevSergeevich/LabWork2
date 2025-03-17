@@ -1,8 +1,8 @@
-#include "include/game_menu.h"
+#include "include/game_controller.h"
 
 int main()
 {
-    GameMenu ger;
-    ger.showMainMenu();
+    GameController like;
+    like.startGame();  // Start Game
     return 0;
 }
