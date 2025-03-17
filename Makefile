@@ -25,13 +25,16 @@ default: all
 $(LIBPROJECT): $(OBJ)
 	$(A) $(AFLAGS) $@ $^
 
-$(PROJECT): main.o $(LIBPROJECT)
-	$(CXX) -o $@ main.o $(LDXXFLAGS)
+$(PROJECT): $(OBJ) $(LIBPROJECT) main.o
+	$(CXX) -o $@ $(OBJ) main.o $(LDXXFLAGS)
 
 $(TESTPROJECT): $(LIBPROJECT) $(TEST-OBJ)
 	$(CXX) -o $@ $(TEST-OBJ) $(LDGTESTFLAGS)
 
 test: $(TESTPROJECT)
+
+debug: $(OBJ) $(LIBPROJECT) main.o
+	$(CXX) -o $(PROJECT) $(OBJ) main.o $(LDXXFLAGS) -g
 
 all: $(PROJECT)
 
