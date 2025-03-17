@@ -4,12 +4,12 @@ TEST(game_menu, chooseHero)
 {
     GameMenu menu;
 
-    // Имитация ввода
+    // Imitation input
     std::istringstream input("1\n2\n5\n");
     std::cin.rdbuf(input.rdbuf());
     menu.showMainMenu();
 
-    // Проверка выбора
-    ASSERT_EQ(menu.getCurrentHero(), "Маг");
+    // Selection check
+    ASSERT_EQ(menu.getCurrentHero(), "Mage");
     std::cin.rdbuf(nullptr);
 }
