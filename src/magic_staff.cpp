@@ -11,6 +11,6 @@ void MagicStaff::buffComboMultiplicate()
     // Double the current damage of the Magic Staff
     setDamageWeapon(getDamageWeapon() * 2);
 
-    // Increase the energy cost of using the Magic Staff by 10
-    setEnergyWeaponCost(getEnergyWeaponCost() + 10);
+    // Increase the energy cost of using the Magic Staff by 8
+    setEnergyWeaponCost(getEnergyWeaponCost() + 8);
 }

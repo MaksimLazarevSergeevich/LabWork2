@@ -143,21 +143,22 @@ void GameFighter::startFight()
         counter++; // Increment the round counter
     }
 
-    std::cout << "\nFight is end!\n";
-
+    std::cout << "============================\n";
     // Determine and display the winner
     if (_player->isAlive() && !bot.getBotHero()->isAlive())
     {
-        std::cout << _player->getName() << " win!\n"; // Player wins
+        std::cout << "====== " <<  _player->getName() << " win! =====\n"; // Player wins
     }
     else if (!_player->isAlive() && bot.getBotHero()->isAlive())
     {
-        std::cout << bot.getBotHero()->getName() << " win!\n"; // Bot wins
+        std::cout << "====== " << bot.getBotHero()->getName() << " win! =====\n"; // Bot wins
     }
     else
     {
         std::cout << "Draw!\n"; // Draw
     }
+
+    std::cout << "============================\n";
 }
 
 // Method to display the player's inventory and allow item usage
