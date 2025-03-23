@@ -37,6 +37,9 @@ public:
 
     //Return pointer to bot weapon
     Weapon* getBotWeapon();
+
+    //Return bot's inventory
+    std::vector<Item*> getBotInventory();
 private:
     Hero* _botHero = nullptr; // Pointer to the bot's hero character (enemy)
     Weapon* _botWeapon = nullptr; // Pointer to the bot's weapon

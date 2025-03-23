@@ -162,3 +162,8 @@ Weapon* Bot::getBotWeapon()
 {
     return _botWeapon;
 }
+
+std::vector<Item*> Bot::getBotInventory()
+{
+    return _botInventory;
+}
