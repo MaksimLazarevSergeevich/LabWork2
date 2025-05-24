@@ -4,7 +4,7 @@
 ## Contacts
 st128707@student.spbu.ru
 ## Description
-In the future, the game code will be located here, but now the CI and repository are configured here
+I have implemented a turn-based game in C++. For more detailed description go to the architecture_docs folder.
 # Prerequisites
 sudo apt install build-essential
 

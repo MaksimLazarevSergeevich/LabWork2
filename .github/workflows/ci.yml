@@ -3,8 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - main
-      - develop
+      - feature/core-of-the-game
   pull_request:
     branches:
       - main

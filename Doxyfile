@@ -1,0 +1,38 @@
+
+PROJECT_NAME           = "RPG Battle Game"
+PROJECT_BRIEF          = "A console-based RPG combat game in C++ with weapons, heroes, and special abilities."
+OUTPUT_DIRECTORY       = docs
+CREATE_SUBDIRS         = NO
+OUTPUT_LANGUAGE        = English
+MARKDOWN_SUPPORT       = YES
+
+INPUT                  = ./include ./src ./tests ./main.cpp ./architecture_docs
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.cpp *.md
+EXCLUDE_PATTERNS       = */.git/*
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_LATEX         = NO
+
+INLINE_INFO            = YES
+SOURCE_BROWSER         = YES
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+HAVE_DOT               = NO
+
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+CLASS_DIAGRAMS         = NO
+
+WARN_IF_UNDOCUMENTED   = YES
+QUIET                  = NO
+WARNINGS               = YES
+
+SHOW_USED_FILES        = YES
+SHOW_INCLUDE_FILES     = YES
