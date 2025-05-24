@@ -1,23 +1,40 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file health_potion.cpp
+*/
 #include "include/health_potion.h"
 
-// Constructor for the HealthPotion class
-// Initializes the health potion with a name and a specific healing value
-HealthPotion::HealthPotion(int healPoint): Item("Health potion"), _healthPoint(healPoint)
+/**
+ * @brief Constructor for the HealthPotion class.
+ * 
+ * Initializes the item with:
+ * - Name: "Health potion"
+ * - Healing value
+ * 
+ * @param healPoint Amount of health to restore.
+ */
+HealthPotion::HealthPotion(int healPoint)
+    : Item("Health potion"), _healthPoint(healPoint)
 {}
 
-// Method to use the health potion
+/**
+ * @brief Uses the health potion on the hero.
+ * 
+ * The item:
+ * - Heals the hero by a specified amount of health points
+ * - Marks that the player has completed their turn
+ * 
+ * @param userHero Pointer to the hero using the item.
+ * @param Unused Second parameter is ignored (for interface compatibility).
+ */
 void HealthPotion::useItem(Hero* userHero, Hero*)
 {
-    // Announce that the health potion is being used by the hero
     std::cout << "\n===== HEALTH POTION =====\n";
     std::cout << userHero->getName() << " use health potion\n";
 
-    // Heal the hero by the specified amount of health points
     userHero->heal(_healthPoint);
-
-    // Set the flag to indicate that the player's turn is complete
     userHero->setIsPlayerGo(true);
 
-    // Print a newline for better formatting in the console output
     std::cout << "============================\n\n";
 }

@@ -1,14 +1,31 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file goblin.h
+*/
 #ifndef GOBLIN_H
 #define GOBLIN_H
+
 #include "hero.h"
-// The Goblin class inherited from the Hero class
-class Goblin: public Hero /*Only bot can use Goblin*/
+
+/**
+ * @class Goblin
+ * @brief The Goblin class is inherited from the Hero class.
+ * @details This hero type is used exclusively by the bot.
+ */
+class Goblin : public Hero
 {
 public:
-    // A constructor that will use the constructor of the Hero class
+    /**
+     * @brief Default constructor that calls the base Hero constructor.
+     */
     Goblin();
 
-    // Realisation of a special ability Goblin
-    void specialAbility(Hero* /*enemy*/) override;
+    /**
+     * @brief Realization of the Goblin's special ability.
+     * @param enemy Pointer to the enemy Hero.
+     */
+    void specialAbility(Hero* enemy) override;
 };
+
 #endif

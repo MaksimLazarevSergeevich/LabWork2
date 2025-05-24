@@ -1,45 +1,83 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file game_fighter.h
+*/
 #ifndef GAME_FIGHTER_H
 #define GAME_FIGHTER_H
-#include "bot.h" //Include the bot with its characters and items
-#include "mage.h" // Include player's characters
+
+/**
+ * @file game_fighter.h
+ * @brief Declares the GameFighter class responsible for managing battles.
+ */
+
+#include "bot.h"           ///< Include the bot with its characters and items
+#include "mage.h"          ///< Include player's characters
 #include "berserk.h"
 #include "archer.h"
-#include "bow.h" // Include player's weapons
+#include "bow.h"           ///< Include player's weapons
 #include "sword.h"
 #include "magic_staff.h"
 
-// The class responsible for the battle
+/**
+ * @class GameFighter
+ * @brief The class responsible for managing battles between the player and the bot.
+ */
 class GameFighter
 {
 public:
-    // Launching the battle
+    /**
+     * @brief Launches the battle.
+     */
     void startFight();
 
-    // The constructor accepts a hero, weapon, and item vector as a string
-    GameFighter(std::string, std::string, std::vector<std::string>);
+    /**
+     * @brief Constructor that initializes the player's hero, weapon, and inventory.
+     * @param heroName Name of the player's hero.
+     * @param weaponName Name of the player's weapon.
+     * @param items Vector of item names.
+     */
+    GameFighter(std::string heroName, std::string weaponName, std::vector<std::string> items);
 
-    // Clearing dynamic memory
+    /**
+     * @brief Destructor to clear dynamically allocated memory.
+     */
     ~GameFighter();
 
-    // Creates a Hero using new
-    void createHero(std::string);
+    /**
+     * @brief Creates a Hero using new.
+     * @param heroName Name of the hero to create.
+     */
+    void createHero(std::string heroName);
 
-    // Creates a Weapon using new
-    void createWeapon(std::string);
+    /**
+     * @brief Creates a Weapon using new.
+     * @param weaponName Name of the weapon to create.
+     */
+    void createWeapon(std::string weaponName);
 
-    // Creates an Inventory using new
-    void createInventory(std::vector<std::string>);
+    /**
+     * @brief Creates an inventory of items.
+     * @param itemNames Vector of item names to add to inventory.
+     */
+    void createInventory(std::vector<std::string> itemNames);
 
-    // Shows player and bot stats
-    void showStatsInfo(Bot&);
+    /**
+     * @brief Displays player and bot statistics.
+     * @param bot Reference to the Bot object.
+     */
+    void showStatsInfo(Bot& bot);
 
-    // Shows the player's items that can be used to attack the bot
-    void showInventory(Bot&);
+    /**
+     * @brief Shows the player's inventory that can be used to attack the bot.
+     * @param bot Reference to the Bot object.
+     */
+    void showInventory(Bot& bot);
 
 private:
-    Hero* _player = nullptr; // A pointer to the hero the player has chosen
-    Weapon* _playerWeapon = nullptr; // A pointer to the weapon the player has chosen
-    std::vector<Item*> _inventory; // Vector of pointers to items selected by the player
+    Hero* _player = nullptr;                        ///< Pointer to the hero chosen by the player
+    Weapon* _playerWeapon = nullptr;                ///< Pointer to the weapon chosen by the player
+    std::vector<Item*> _inventory;                  ///< Vector of pointers to items selected by the player
 };
 
 #endif

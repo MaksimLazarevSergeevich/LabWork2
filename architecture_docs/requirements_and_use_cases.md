@@ -1,3 +1,6 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+
 # Requirements and Use Cases
 
 ## System Requirements

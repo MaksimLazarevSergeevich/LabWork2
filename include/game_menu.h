@@ -1,39 +1,92 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file game_menu.h
+*/
 #ifndef GAME_MENU_H
 #define GAME_MENU_H
-#include <vector> // Include a vector to create an inventory
-#include <iostream> // Include to get data from the console
 
-// The class responsible for player selection
+/**
+ * @file game_menu.h
+ * @brief Declares the GameMenu class responsible for player selection.
+ */
+
+#include <vector>   ///< Include a vector to create an inventory
+#include <iostream> ///< Include to get data from the console
+
+/**
+ * @class GameMenu
+ * @brief Responsible for player's selection of heroes, weapons, and items.
+ */
 class GameMenu
 {
 public:
-    // Begins selecting heroes, weapons, and items
+    /**
+     * @brief Begins the main menu for selecting hero, weapon, and items.
+     */
     void showMainMenu();
 
-    // There's getters
+    /// @name Getters
+    /// @{
+
+    /**
+     * @brief Gets the currently selected hero.
+     * @return Name of the selected hero.
+     */
     std::string getCurrentHero();
+
+    /**
+     * @brief Gets the currently selected weapon.
+     * @return Name of the selected weapon.
+     */
     std::string getCurrentWeapon();
+
+    /**
+     * @brief Gets the list of currently selected items.
+     * @return Vector of item names.
+     */
     std::vector<std::string> getItems();
 
-    // Changing and getting a point that changes the state of the game
+    /**
+     * @brief Gets the point that changes the state of the game.
+     * @return Integer representing the state.
+     */
     int getPointChanger();
-    void setPointChanger(int);
+
+    /**
+     * @brief Sets the point that changes the state of the game.
+     * @param point Value to set.
+     */
+    void setPointChanger(int point);
+
+    /// @}
 
 private:
-    // Current Player's Choice
-    std::string _currentHero;
-    std::string _currentWeapon; 
-    std::vector<std::string> _currentItems;
+    std::string _currentHero;                ///< Current hero selected by the player
+    std::string _currentWeapon;              ///< Current weapon selected by the player
+    std::vector<std::string> _currentItems;  ///< Current items selected by the player
 
-    // An important point responsible for the user's readiness for battle as well as quitting the game
-    int _pointChanger = 0;
+    int _pointChanger = 0;                   ///< Controls game state: readiness or exit
 
-    // Methods to help player choice
+    /**
+     * @brief Allows the player to choose a hero.
+     */
     void chooseHero();
+
+    /**
+     * @brief Allows the player to choose a weapon.
+     */
     void chooseWeapon();
+
+    /**
+     * @brief Allows the player to choose items.
+     */
     void chooseItem();
 
-    // Checks the player's choice
+    /**
+     * @brief Checks if the player is ready to proceed.
+     */
     void checkReady();
 };
+
 #endif

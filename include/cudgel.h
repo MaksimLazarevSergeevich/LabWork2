@@ -1,14 +1,30 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file cudgel.h
+*/
 #ifndef CUDGEL_H
 #define CUDGEL_H
+
 #include "weapon.h"
-// The Cudgel class is inherited from the Weapon class
-class Cudgel: public Weapon /*Only the bot will have this weapon*/
+
+/**
+ * @class Cudgel
+ * @brief The Cudgel class is inherited from the Weapon class.
+ * @details This weapon is used exclusively by the bot.
+ */
+class Cudgel : public Weapon
 {
 public:
-    // The constructor will use the constructor of the Weapon class
+    /**
+     * @brief Default constructor that calls the base Weapon constructor.
+     */
     Cudgel();
 
-    // Realisation of the Cudgel weapon enhancement
+    /**
+     * @brief Realization of the Cudgel weapon enhancement.
+     */
     void buffComboMultiplicate() override;
 };
+
 #endif

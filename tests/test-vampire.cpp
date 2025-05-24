@@ -1,48 +1,65 @@
-#include <gtest/gtest.h>
-#include "include/vampire.h"  // Include the header file for the Vampire class
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
 
-// Test case for checking the initialization of the Vampire class
+/**
+ * @file vampire_test.cpp
+ * @brief Unit tests for the Vampire class using Google Test framework.
+ */
+
+#include <gtest/gtest.h>
+#include "include/vampire.h"
+
+/**
+ * @test VampireTest.ConstructorInitialization
+ * @brief Verifies that the Vampire is initialized with correct default attributes.
+ */
 TEST(VampireTest, ConstructorInitialization)
 {
     Vampire vampire;
 
-    // Verify that the Vampire's attributes are initialized correctly
-    EXPECT_EQ(vampire.getName(), "Vampire");  // Check the name
-    EXPECT_EQ(vampire.getHealth(), 90);       // Check the health
-    EXPECT_EQ(vampire.getEnergy(), 90);       // Check the energy
-    EXPECT_EQ(vampire.getDefoltDamage(), 3);  // Check the default damage
+    EXPECT_EQ(vampire.getName(), "Vampire");
+    EXPECT_EQ(vampire.getHealth(), 90);
+    EXPECT_EQ(vampire.getEnergy(), 90);
+    EXPECT_EQ(vampire.getDefoltDamage(), 3);
 }
 
-// Test case for checking the special ability of the Vampire
+/**
+ * @test VampireTest.SpecialAbility
+ * @brief Verifies that the Vampire's special ability:
+ *        - deals 15 damage to the enemy,
+ *        - heals the Vampire by 15,
+ *        - consumes 15 energy,
+ *        - and does nothing when energy is insufficient.
+ */
 TEST(VampireTest, SpecialAbility)
 {
     Vampire vampire;
-    Hero enemy("Enemy", 100, 50, 10); // Create an enemy for testing
+    Hero enemy("Enemy", 100, 50, 10);
 
-    // Apply 15 damage to the Vampire to simulate a scenario
     vampire.TakeDamage(15);
-
-    // Verify that the special ability works when there is enough energy
     vampire.specialAbility(&enemy);
-    EXPECT_EQ(enemy.getHealth(), 100 - 15); // Check that the enemy's health is reduced by 15
-    EXPECT_EQ(vampire.getHealth(), 90);     // Check that the Vampire's health is restored to 90 (healed by 15)
-    EXPECT_EQ(vampire.getEnergy(), 90 - 15); // Check that the Vampire's energy is reduced by 15
 
-    // Verify that the special ability does not work when there is insufficient energy
-    vampire.spendEnergy(61); // Spend all energy except 14
-    vampire.specialAbility(&enemy); // Attempt to use the special ability
-    EXPECT_EQ(enemy.getHealth(), 100 - 15); // Enemy's health should not change
-    EXPECT_EQ(vampire.getHealth(), 90);     // Vampire's health should not change
-    EXPECT_EQ(vampire.getEnergy(), 14);     // Vampire's energy should not change
+    EXPECT_EQ(enemy.getHealth(), 85);
+    EXPECT_EQ(vampire.getHealth(), 90);
+    EXPECT_EQ(vampire.getEnergy(), 75);
+
+    vampire.spendEnergy(61); // remaining energy = 14
+    vampire.specialAbility(&enemy);
+
+    EXPECT_EQ(enemy.getHealth(), 85);  // unchanged
+    EXPECT_EQ(vampire.getHealth(), 90); // unchanged
+    EXPECT_EQ(vampire.getEnergy(), 14); // unchanged
 }
 
-// Test case for checking that setIsPlayerGo is called
+/**
+ * @test VampireTest.SetIsPlayerGo
+ * @brief Ensures the Vampire sets turn flag after using the ability.
+ */
 TEST(VampireTest, SetIsPlayerGo)
 {
     Vampire vampire;
     Hero enemy("Enemy", 100, 50, 10);
 
-    // Verify that setIsPlayerGo(true) is called when the special ability is used
     vampire.specialAbility(&enemy);
-    EXPECT_TRUE(vampire.getIsPlayerGo()); // Check that the player's turn is marked as complete
+    EXPECT_TRUE(vampire.getIsPlayerGo());
 }

@@ -1,16 +1,30 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file item.cpp
+*/
 #include "include/item.h"
 
-// Constructor for the Item class
-// Initializes the item with a name
-Item::Item(std::string name): _nameItem(name)
+/**
+ * @brief Constructor for the Item class.
+ * 
+ * Initializes the item with a given name.
+ * @param name Name of the item.
+ */
+Item::Item(std::string name) : _nameItem(name)
 {}
 
-// Method to get the name of the item
+/**
+ * @brief Gets the name of the item.
+ * @return Name of the item as a string.
+ */
 std::string Item::getNameItem()
 {
-    return _nameItem; // Return the name of the item
+    return _nameItem;
 }
 
-// Destructor for the Item class
+/**
+ * @brief Virtual destructor for the Item class.
+ */
 Item::~Item()
 {}

@@ -1,13 +1,29 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file bow.h
+*/
 #ifndef BOW_H
 #define BOW_H
+
 #include "weapon.h"
-// The Bow class is inherited from the Weapon class
-class Bow: public Weapon
+
+/**
+ * @class Bow
+ * @brief The Bow class is inherited from the Weapon class.
+ */
+class Bow : public Weapon
 {
 public:
-    // The constructor will use the constructor of the Weapon class
+    /**
+     * @brief Default constructor that calls the base Weapon constructor.
+     */
     Bow();
-    // Realisation of the Bow weapon enhancement
+
+    /**
+     * @brief Realization of the Bow weapon enhancement.
+     */
     void buffComboMultiplicate() override;
 };
+
 #endif

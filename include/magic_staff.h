@@ -1,14 +1,28 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file magic_staff.h
+*/
 #ifndef MAGIC_STAFF_H
 #define MAGIC_STAFF_H
+
 #include "weapon.h"
-// The MagicStaff class is inherited from the Weapon class
-class MagicStaff: public Weapon
+
+/**
+ * @class MagicStaff
+ * @brief The MagicStaff class is inherited from the Weapon class.
+ */
+class MagicStaff : public Weapon
 {
 public:
-    // The constructor will use the constructor of the Weapon class
+    /**
+     * @brief Default constructor that calls the base Weapon constructor.
+     */
     MagicStaff();
 
-    // Realisation of the MagicStaff weapon enhancement
+    /**
+     * @brief Realization of the MagicStaff weapon enhancement.
+     */
     void buffComboMultiplicate() override;
 };
 

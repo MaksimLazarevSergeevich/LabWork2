@@ -1,16 +1,35 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file energy_potion.h
+*/
 #ifndef ENERGY_POTION_H
 #define ENERGY_POTION_H
+
 #include "item.h"
-// The EnergyPotion class is inherited from the Item class
-// This item restores energy
-class EnergyPotion: public Item
+
+/**
+ * @class EnergyPotion
+ * @brief The EnergyPotion class is inherited from the Item class.
+ * @details This item restores energy to the hero who uses it.
+ */
+class EnergyPotion : public Item
 {
 public:
-    // This method restores energy to the person who used the item
-    void useItem(Hero* /*userHero*/, Hero* /*userHero*/) override;
-    // EnergyPotion constructor
-    EnergyPotion(int /*energyPoint*/);
+    /**
+     * @brief Restores energy to the hero using the item.
+     * @param userHero Pointer to the hero using the item (used twice for compatibility).
+     */
+    void useItem(Hero* userHero, Hero* userHeroDuplicate) override;
+
+    /**
+     * @brief Constructor for EnergyPotion.
+     * @param energyPoint The amount of energy to restore.
+     */
+    EnergyPotion(int energyPoint);
+
 private:
-    int _energyPoint; // How much energy to restore
+    int _energyPoint; ///< Amount of energy to restore.
 };
+
 #endif

@@ -1,3 +1,6 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+
 # Testing Plan
 
 ## Unit Testing

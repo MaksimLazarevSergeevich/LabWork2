@@ -1,43 +1,57 @@
-#include <gtest/gtest.h>
-#include "include/mage.h"  // Include the header file for the Mage class
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
 
-// Test case for checking the initialization of the Mage class
+/**
+ * @file mage_test.cpp
+ * @brief Unit tests for the Mage class using Google Test framework.
+ */
+
+#include <gtest/gtest.h>
+#include "include/mage.h"
+
+/**
+ * @test MageTest.ConstructorInitialization
+ * @brief Verifies that the Mage is initialized with correct attributes.
+ */
 TEST(MageTest, ConstructorInitialization)
 {
     Mage mage;
 
-    // Verify that the Mage's attributes are initialized correctly
-    EXPECT_EQ(mage.getName(), "Mage");  // Check the name
-    EXPECT_EQ(mage.getHealth(), 60);    // Check the health
-    EXPECT_EQ(mage.getEnergy(), 100);   // Check the energy
-    EXPECT_EQ(mage.getDefoltDamage(), 2); // Check the default damage
+    EXPECT_EQ(mage.getName(), "Mage");
+    EXPECT_EQ(mage.getHealth(), 60);
+    EXPECT_EQ(mage.getEnergy(), 100);
+    EXPECT_EQ(mage.getDefoltDamage(), 2);
 }
 
-// Test case for checking the special ability of the Mage
+/**
+ * @test MageTest.SpecialAbility
+ * @brief Tests that the Mage's special ability reduces enemy health and consumes energy correctly.
+ *        Also verifies it doesn't activate with insufficient energy.
+ */
 TEST(MageTest, SpecialAbility)
 {
     Mage mage;
-    Hero enemy("Enemy", 100, 50, 10); // Create an enemy for testing
+    Hero enemy("Enemy", 100, 50, 10);
 
-    // Verify that the special ability works when there is enough energy
     mage.specialAbility(&enemy);
-    EXPECT_EQ(enemy.getHealth(), 100 - 20); // Check that the enemy's health is reduced by 20
-    EXPECT_EQ(mage.getEnergy(), 100 - 20);  // Check that the Mage's energy is reduced by 20
+    EXPECT_EQ(enemy.getHealth(), 80);
+    EXPECT_EQ(mage.getEnergy(), 80);
 
-    // Verify that the special ability does not work when there is insufficient energy
-    mage.spendEnergy(61); // Spend all energy except 19
-    mage.specialAbility(&enemy); // Attempt to use the special ability
-    EXPECT_EQ(enemy.getHealth(), 100 - 20); // Enemy's health should not change
-    EXPECT_EQ(mage.getEnergy(), 19);        // Mage's energy should not change
+    mage.spendEnergy(61);  // Leave only 19 energy
+    mage.specialAbility(&enemy);
+    EXPECT_EQ(enemy.getHealth(), 80); // No further damage
+    EXPECT_EQ(mage.getEnergy(), 19);  // No energy spent
 }
 
-// Test case for checking that setIsPlayerGo is called
+/**
+ * @test MageTest.SetIsPlayerGo
+ * @brief Ensures that Mage marks the turn as complete after using special ability.
+ */
 TEST(MageTest, SetIsPlayerGo)
 {
     Mage mage;
     Hero enemy("Enemy", 100, 50, 10);
 
-    // Verify that setIsPlayerGo(true) is called when the special ability is used
     mage.specialAbility(&enemy);
-    EXPECT_TRUE(mage.getIsPlayerGo()); // Check that the player's turn is marked as complete
+    EXPECT_TRUE(mage.getIsPlayerGo());
 }

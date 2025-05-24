@@ -1,14 +1,31 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file vampire.h
+*/
 #ifndef VAMPIRE_H
 #define VAMPIRE_H
+
 #include "hero.h"
-// The Vampire class inherited from the Hero class
-class Vampire: public Hero /*only bot can use Vampire*/
+
+/**
+ * @class Vampire
+ * @brief The Vampire class is inherited from the Hero class.
+ * @details This hero type is used exclusively by the bot.
+ */
+class Vampire : public Hero
 {
 public:
-    // A constructor that will use the constructor of the Hero class
+    /**
+     * @brief Default constructor that calls the base Hero constructor.
+     */
     Vampire();
 
-    // Realisation of a special ability Vampire
-    void specialAbility(Hero*) override;
+    /**
+     * @brief Realization of the Vampire's special ability.
+     * @param enemy Pointer to the enemy Hero.
+     */
+    void specialAbility(Hero* enemy) override;
 };
+
 #endif

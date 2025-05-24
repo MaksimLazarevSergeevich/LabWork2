@@ -1,234 +1,168 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file game_fighter.cpp
+*/
 #include "include/game_fighter.h"
 
-// Constructor for GameFighter class
-// Initializes the player's hero, weapon, and inventory based on provided inputs
+/**
+ * @brief Constructor for GameFighter class.
+ * 
+ * Initializes the player's hero, weapon, and inventory based on provided names and items.
+ * @param nameHero The name of the hero.
+ * @param nameWeapon The name of the weapon.
+ * @param items List of item names.
+ */
 GameFighter::GameFighter(std::string nameHero, std::string nameWeapon, std::vector<std::string> items)
 {
-    // Create the player's hero based on the provided name
     createHero(nameHero);
-
-    // Create the player's weapon based on the provided name
     createWeapon(nameWeapon);
-
-    // Create the player's inventory based on the provided list of items
     createInventory(items);
-
-    // Equip the created weapon to the player's hero
     _player->equipWeapon(_playerWeapon);
 }
 
-// Method to create the player's hero
+/**
+ * @brief Creates a hero based on the given name.
+ * @param nameHero The name of the hero to create.
+ */
 void GameFighter::createHero(std::string nameHero)
 {
-    // Instantiate the appropriate hero class based on the provided name
-    if (nameHero == "Berserk")
-    {
-        _player = new Berserk; // Create a Berserk hero
-    }
-    else if (nameHero == "Mage")
-    {
-        _player = new Mage; // Create a Mage hero
-    }
-    else
-    {
-        _player = new Archer; // Default to creating an Archer hero
-    }
+    if (nameHero == "Berserk") _player = new Berserk;
+    else if (nameHero == "Mage") _player = new Mage;
+    else _player = new Archer;
 }
 
-// Method to create the player's weapon
+/**
+ * @brief Creates a weapon based on the given name.
+ * @param nameWeapon The name of the weapon to create.
+ */
 void GameFighter::createWeapon(std::string nameWeapon)
 {
-    // Instantiate the appropriate weapon class based on the provided name
-    if (nameWeapon == "Bow")
-    {
-        _playerWeapon = new Bow; // Create a Bow weapon
-    }
-    else if (nameWeapon == "Magic staff")
-    {
-        _playerWeapon = new MagicStaff; // Create a Magic Staff weapon
-    }
-    else
-    {
-        _playerWeapon = new Sword; // Default to creating a Sword weapon
-    }
+    if (nameWeapon == "Bow") _playerWeapon = new Bow;
+    else if (nameWeapon == "Magic staff") _playerWeapon = new MagicStaff;
+    else _playerWeapon = new Sword;
 }
 
-// Method to create the player's inventory
+/**
+ * @brief Creates the player's inventory based on the given list of item names.
+ * @param items Vector of item names.
+ */
 void GameFighter::createInventory(std::vector<std::string> items)
 {
-    // Iterate through the list of item names and create corresponding item objects
-    for (std::string item : items)
+    for (const std::string& item : items)
     {
-        if (item == "Energy potion")
-        {
-            _inventory.push_back(new EnergyPotion(10)); // Add an Energy Potion to the inventory
-        }
-        else if (item == "Health potion")
-        {
-            _inventory.push_back(new HealthPotion(15)); // Add a Health Potion to the inventory
-        }
-        else if (item == "Debuff bomb")
-        {
-            _inventory.push_back(new DebuffBomb(15, 10)); // Add a Debuff Bomb to the inventory
-        }
+        if (item == "Energy potion") _inventory.push_back(new EnergyPotion(10));
+        else if (item == "Health potion") _inventory.push_back(new HealthPotion(15));
+        else if (item == "Debuff bomb") _inventory.push_back(new DebuffBomb(15, 10));
     }
 }
 
-// Method to start the fight between the player and the bot
+/**
+ * @brief Starts the fight between the player and the bot.
+ */
 void GameFighter::startFight()
 {
-    Bot bot; // Create an instance of the Bot class
-    bot.createHeroBot(); // Create the bot's hero
-    bot.createWeaponBot(); // Create and equip the bot's weapon
-    bot.createInventoryBot(); // Create the bot's inventory
+    Bot bot;
+    bot.createHeroBot();
+    bot.createWeaponBot();
+    bot.createInventoryBot();
 
-    int counter = 1; // Initialize the round counter
+    int counter = 1;
 
-    // Continue the fight until either the player or the bot dies
     while (bot.getBotHero()->isAlive() && _player->isAlive())
     {
         std::cout << "\n--- Round " << counter << " ---\n";
         std::cout << "Your move " << _player->getName() << '\n';
 
-        // Player's turn: Continue until the player completes their move
         while (!_player->getIsPlayerGo())
         {
-            // Display available actions to the player
-            std::cout << "1. Default attack\n";
-            std::cout << "2. Attack with a weapon\n";
-            std::cout << "3. Special skill\n";
-            std::cout << "4. Open inventory\n";
-            std::cout << "5. View stats\n";
-            std::cout << "Enter the action number: ";
+            std::cout << "1. Default attack\n"
+                      << "2. Attack with a weapon\n"
+                      << "3. Special skill\n"
+                      << "4. Open inventory\n"
+                      << "5. View stats\n"
+                      << "Enter the action number: ";
 
             std::string choice;
             std::cin >> choice;
 
-            // Perform the selected action
-            if (choice == "1")
-            {
-                _player->defoltAttack(bot.getBotHero()); // Perform a default attack
-            }
-            else if (choice == "2")
-            {
-                _player->attackWithWeapon(bot.getBotHero()); // Perform a weapon attack
-            }
-            else if (choice == "3")
-            {
-                _player->specialAbility(bot.getBotHero()); // Use a special ability
-            }
-            else if (choice == "4")
-            {
-                showInventory(bot); // Open the inventory
-            }
-            else if (choice == "5")
-            {
-                showStatsInfo(bot); // View stats
-            }
-            else
-            {
-                std::cout << "\nIncorrect input\n\n"; // Handle invalid input
-            }
+            if (choice == "1") _player->defoltAttack(bot.getBotHero());
+            else if (choice == "2") _player->attackWithWeapon(bot.getBotHero());
+            else if (choice == "3") _player->specialAbility(bot.getBotHero());
+            else if (choice == "4") showInventory(bot);
+            else if (choice == "5") showStatsInfo(bot);
+            else std::cout << "\nIncorrect input\n\n";
         }
 
-        _player->setIsPlayerGo(false); // Reset the player's turn flag
+        _player->setIsPlayerGo(false);
 
-        // Check if the bot has died, and end the fight if so
-        if (!bot.getBotHero()->isAlive())
-        {
-            break;
-        }
+        if (!bot.getBotHero()->isAlive()) break;
 
-        bot.makeMove(_player); // Bot's turn to make a move
-        counter++; // Increment the round counter
+        bot.makeMove(_player);
+        counter++;
     }
 
     std::cout << "============================\n";
-    // Determine and display the winner
     if (_player->isAlive() && !bot.getBotHero()->isAlive())
-    {
-        std::cout << "====== " <<  _player->getName() << " win! =====\n"; // Player wins
-    }
+        std::cout << "====== " << _player->getName() << " win! =====\n";
     else if (!_player->isAlive() && bot.getBotHero()->isAlive())
-    {
-        std::cout << "====== " << bot.getBotHero()->getName() << " win! =====\n"; // Bot wins
-    }
+        std::cout << "====== " << bot.getBotHero()->getName() << " win! =====\n";
     else
-    {
-        std::cout << "Draw!\n"; // Draw
-    }
+        std::cout << "Draw!\n";
 
     std::cout << "============================\n";
 }
 
-// Method to display the player's inventory and allow item usage
+/**
+ * @brief Displays the player's inventory and allows using one item.
+ * @param bot Reference to the bot to apply item effects if needed.
+ */
 void GameFighter::showInventory(Bot& bot)
 {
-    // Check if the inventory is empty
     if (_inventory.empty())
     {
         std::cout << "\nInventory is empty.\n\n";
         return;
     }
-    else
+
+    std::cout << "\nSelect an item to use:\n";
+    for (size_t i = 0; i < _inventory.size(); ++i)
     {
-        std::cout << "\nSelect an item to use:\n";
-
-        // Display the list of available items
-        for (size_t i = 0; i < _inventory.size(); ++i)
-        {
-            std::cout << i + 1 << ". " << _inventory[i]->getNameItem() << "\n";
-        }
-
-        std::cout << "\nYou can return to the selection menu if you enter something else\n";
-        std::cout << "Enter the item number: ";
-
-        std::string choice;
-        std::cin >> choice;
-
-        size_t itemChoice = 100; // Temporary variable to store the selected item index
-
-        // Map the player's choice to the item index
-        if (choice == "1")
-        {
-            itemChoice = 1;
-        }
-        else if (choice == "2")
-        {
-            itemChoice = 2;
-        }
-        else if (choice == "3")
-        {
-            itemChoice = 3;
-        }
-
-        // Check if the selected item index is valid
-        if (itemChoice >= 1 && itemChoice <= _inventory.size())
-        {
-            // Use the selected item
-            if (_inventory[itemChoice - 1]->getNameItem() == "Debuff bomb")
-            {
-                _inventory[itemChoice - 1]->useItem(_player, bot.getBotHero()); // Use on the bot
-            }
-            else
-            {
-                _inventory[itemChoice - 1]->useItem(_player, _player); // Use on the player
-            }
-
-            // Delete the used item and remove it from the inventory
-            delete _inventory[itemChoice - 1];
-            _inventory.erase(_inventory.begin() + itemChoice - 1);
-            return;
-        }
-
-        std::cout << "\nIncorrect input, return to the selection menu\n\n"; // Handle invalid input
+        std::cout << i + 1 << ". " << _inventory[i]->getNameItem() << "\n";
     }
+
+    std::cout << "\nYou can return to the selection menu if you enter something else\n";
+    std::cout << "Enter the item number: ";
+
+    std::string choice;
+    std::cin >> choice;
+
+    size_t itemChoice = 100;
+    if (choice == "1") itemChoice = 1;
+    else if (choice == "2") itemChoice = 2;
+    else if (choice == "3") itemChoice = 3;
+
+    if (itemChoice >= 1 && itemChoice <= _inventory.size())
+    {
+        if (_inventory[itemChoice - 1]->getNameItem() == "Debuff bomb")
+            _inventory[itemChoice - 1]->useItem(_player, bot.getBotHero());
+        else
+            _inventory[itemChoice - 1]->useItem(_player, _player);
+
+        delete _inventory[itemChoice - 1];
+        _inventory.erase(_inventory.begin() + itemChoice - 1);
+        return;
+    }
+
+    std::cout << "\nIncorrect input, return to the selection menu\n\n";
 }
 
-// Method to display the stats of the player and the bot
+/**
+ * @brief Displays stats for both the player and the bot.
+ * @param bot Reference to the Bot object.
+ */
 void GameFighter::showStatsInfo(Bot& bot)
 {
-    // Display the player's stats
     std::cout << "\n===== PLAYER STATS =====\n";
     std::cout << _player->getName() << " Health: " << _player->getHealth() << " / " << _player->getMaxHealth() << '\n';
     std::cout << "Energy: " << _player->getEnergy() << " / " << _player->getMaxEnergy() << '\n';
@@ -236,7 +170,6 @@ void GameFighter::showStatsInfo(Bot& bot)
     std::cout << "Weapon Damage: " << _playerWeapon->getDamageWeapon()
               << " (Energy Cost: " << _playerWeapon->getEnergyWeaponCost() << ")\n";
 
-    // Display the bot's stats
     std::cout << "\n===== ENEMY STATS =====\n";
     std::cout << bot.getBotHero()->getName() << " Health: "
               << bot.getBotHero()->getHealth() << " / " << bot.getBotHero()->getMaxHealth() << '\n';
@@ -247,19 +180,22 @@ void GameFighter::showStatsInfo(Bot& bot)
     std::cout << '\n';
 }
 
-// Destructor to clean up dynamically allocated memory
+/**
+ * @brief Destructor for GameFighter.
+ * 
+ * Cleans up dynamically allocated memory for hero, weapon, and inventory items.
+ */
 GameFighter::~GameFighter()
 {
-    delete _player; // Delete the player's hero
+    delete _player;
     _player = nullptr;
 
-    delete _playerWeapon; // Delete the player's weapon
+    delete _playerWeapon;
     _playerWeapon = nullptr;
 
-    // Delete all items in the inventory
     for (Item* item : _inventory)
     {
         delete item;
     }
-    _inventory.clear(); // Clear the inventory vector
+    _inventory.clear();
 }

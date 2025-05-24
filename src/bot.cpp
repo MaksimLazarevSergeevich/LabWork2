@@ -1,23 +1,32 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file bot.cpp
+*/
 #include "include/bot.h"
 
-// Generate a random number in the range [min, max]
+/**
+ * @brief Generate a random number in the range [min, max].
+ * @param min Minimum value (inclusive).
+ * @param max Maximum value (inclusive).
+ * @return Random integer within the given range.
+ */
 int Bot::getRandomNumber(int min, int max)
 {
-    std::random_device rd; // Get a random value from a random device
-    std::mt19937 gen(rd()); // Initialize a random number generator
-    std::uniform_int_distribution<> distrib(min, max); // Distribution for random numbers in the range [min, max]
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(min, max);
     return distrib(gen);
 }
 
-// Create a bot's enemy character
+/**
+ * @brief Create a bot's enemy character (hero).
+ */
 void Bot::createHeroBot()
 {
-    // List of possible enemy names
     std::vector<std::string> EnemyNames = {"Vampire", "Goblin"};
-    // Choose a random enemy from the list
     std::string chosenEnemy = EnemyNames[getRandomNumber(0, EnemyNames.size() - 1)];
-    // Based on the chosen enemy, create the corresponding class object
-    // Create an enemy and pass the pointer to the class field
+
     if (chosenEnemy == "Vampire")
     {
         _botHero = new Vampire;
@@ -30,15 +39,14 @@ void Bot::createHeroBot()
     std::cout << "Your enemy is " << _botHero->getName() << '\n';
 }
 
-// Create a bot's weapon (Use only after creating a bot hero)
+/**
+ * @brief Create a bot's weapon (should be called after createHeroBot()).
+ */
 void Bot::createWeaponBot()
 {
-    // List of possible weapons
     std::vector<std::string> EnemyWeapon = {"Crimson grail", "Cudgel"};
-    // Choose a random weapon
     std::string chosenWeapon = EnemyWeapon[getRandomNumber(0, EnemyWeapon.size() - 1)];
 
-    // Create a weapon and pass the pointer to the class field
     if (chosenWeapon == "Crimson grail")
     {
         _botWeapon = new CrimsonGrail;
@@ -48,24 +56,22 @@ void Bot::createWeaponBot()
         _botWeapon = new Cudgel;
     }
 
-    _botHero->equipWeapon(_botWeapon); // Here bot equip weapon
+    _botHero->equipWeapon(_botWeapon);
     std::cout << "Bot weapon is " << _botWeapon->getNameWeapon() << '\n';
 }
 
-// Create the bot's inventory
+/**
+ * @brief Create the bot's inventory with 1–3 randomly selected items.
+ */
 void Bot::createInventoryBot()
 {
-    // List of possible items for the inventory
     std::vector<std::string> itemNames = {"Energy potion", "Health potion", "Debuff bomb"};
-    int itemCount = getRandomNumber(1, 3); // Bot takes 1-3 items
+    int itemCount = getRandomNumber(1, 3);
 
-    // Add random items to the inventory
     for (int i = 0; i < itemCount; i++)
     {
         std::string chosenItem = itemNames[getRandomNumber(0, itemNames.size() - 1)];
 
-         // Based on the chosen item, create the corresponding object
-         // Add the object pointer to the vector
         if (chosenItem == "Energy potion")
         {
             _botInventory.push_back(new EnergyPotion(10));
@@ -83,10 +89,12 @@ void Bot::createInventoryBot()
     }
 }
 
-// Make a move for the bot
+/**
+ * @brief Make a move for the bot: attack, use special ability, or use item.
+ * @param enemyHero Pointer to the enemy hero (player's character).
+ */
 void Bot::makeMove(Hero* enemyHero)
 {
-    // Randomly choose one of three actions: 1 - attack, 2 - special ability, 3 - use item
     int option = getRandomNumber(1, 3);
 
     if (option == 1)
@@ -99,70 +107,73 @@ void Bot::makeMove(Hero* enemyHero)
     }
     else
     {
-        // If the inventory is not empty, use a random item
-        if (! _botInventory.empty())
+        if (!_botInventory.empty())
         {
-            // Randomly choose an item from the inventory
             int itemIndex = getRandomNumber(0, _botInventory.size() - 1);
             Item* item = _botInventory[itemIndex];
-            
-            // If the item is a Debuff Bomb, use it on the enemy
+
             if (item->getNameItem() == "Debuff bomb")
             {
                 item->useItem(_botHero, enemyHero);
             }
-            // Otherwise, use the item on the bot itself
             else
             {
                 item->useItem(_botHero, _botHero);
             }
 
-            // Delete the used item and remove it from the inventory
             delete item;
             _botInventory.erase(_botInventory.begin() + itemIndex);
         }
     }
-    // If the bot was unable to perform the action, it uses a defolt attack
-    if (! _botHero->getIsPlayerGo())
+
+    if (!_botHero->getIsPlayerGo())
     {
         _botHero->defoltAttack(enemyHero);
     }
-    // After the bot's move, set the flag to false
+
     _botHero->setIsPlayerGo(false);
 }
 
-// Destructor to free memory
+/**
+ * @brief Destructor to free memory allocated for hero, weapon, and items.
+ */
 Bot::~Bot()
 {
-    // Free memory used by the weapon
     delete _botWeapon;
     _botWeapon = nullptr;
 
-    // Free memory used by the bot's hero
     delete _botHero;
     _botHero = nullptr;
 
-    // Free memory for all items in the inventory
     for (Item* item : _botInventory)
     {
         delete item;
     }
-    // Clear the inventory vector
     _botInventory.clear();
 }
 
-// Return pointer to bot hero
+/**
+ * @brief Returns a pointer to the bot's hero.
+ * @return Pointer to Hero.
+ */
 Hero* Bot::getBotHero()
 {
     return _botHero;
 }
 
-// Return pointer to bot weapon
+/**
+ * @brief Returns a pointer to the bot's weapon.
+ * @return Pointer to Weapon.
+ */
 Weapon* Bot::getBotWeapon()
 {
     return _botWeapon;
 }
 
+/**
+ * @brief Returns the bot's inventory.
+ * @return Vector of Item pointers.
+ */
 std::vector<Item*> Bot::getBotInventory()
 {
     return _botInventory;

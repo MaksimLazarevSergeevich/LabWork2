@@ -1,41 +1,73 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file weapon.cpp
+*/
 #include "include/weapon.h"
 
-// Constructor for the Weapon class
-// Initializes the weapon with a name, damage value, and energy cost
-Weapon::Weapon(std::string nameWeapon, int damageWeapon, int energyWeaponCost): 
-    _nameWeapon(nameWeapon), _damageWeapon(damageWeapon), _energyWeaponCost(energyWeaponCost)
+/**
+ * @brief Constructor for the Weapon class.
+ * 
+ * Initializes the weapon with:
+ * - Name
+ * - Damage value
+ * - Energy cost
+ * 
+ * @param nameWeapon Name of the weapon.
+ * @param damageWeapon Damage the weapon deals.
+ * @param energyWeaponCost Energy required to use the weapon.
+ */
+Weapon::Weapon(std::string nameWeapon, int damageWeapon, int energyWeaponCost)
+    : _nameWeapon(nameWeapon), _damageWeapon(damageWeapon), _energyWeaponCost(energyWeaponCost)
 {}
 
-// Method to get the weapon's damage value
+/**
+ * @brief Gets the weapon's damage value.
+ * @return Weapon damage.
+ */
 int Weapon::getDamageWeapon()
 {
-    return _damageWeapon; // Return the current damage value of the weapon
+    return _damageWeapon;
 }
 
-// Method to get the weapon's energy cost
+/**
+ * @brief Gets the weapon's energy cost.
+ * @return Energy cost to use the weapon.
+ */
 int Weapon::getEnergyWeaponCost()
 {
-    return _energyWeaponCost; // Return the current energy cost to use the weapon
+    return _energyWeaponCost;
 }
 
-// Method to get the weapon's name
+/**
+ * @brief Gets the weapon's name.
+ * @return Name of the weapon.
+ */
 std::string Weapon::getNameWeapon()
 {
-    return _nameWeapon; // Return the name of the weapon
+    return _nameWeapon;
 }
 
-// Method to set the weapon's damage value
+/**
+ * @brief Sets the weapon's damage value.
+ * @param x New damage value.
+ */
 void Weapon::setDamageWeapon(int x)
 {
-    _damageWeapon = x; // Update the weapon's damage value to the provided value (x)
+    _damageWeapon = x;
 }
 
-// Method to set the weapon's energy cost
+/**
+ * @brief Sets the weapon's energy cost.
+ * @param x New energy cost.
+ */
 void Weapon::setEnergyWeaponCost(int x)
 {
-    _energyWeaponCost = x; // Update the weapon's energy cost to the provided value (x)
+    _energyWeaponCost = x;
 }
 
-// Destructor for the Weapon class
+/**
+ * @brief Virtual destructor for the Weapon class.
+ */
 Weapon::~Weapon()
 {}

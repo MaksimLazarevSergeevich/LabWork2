@@ -1,14 +1,30 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file crimson_grail.h
+*/
 #ifndef CRIMSON_GRAIL_H
 #define CRIMSON_GRAIL_H
+
 #include "weapon.h"
-// The CrimsonGrail class is inherited from the Weapon class
-class CrimsonGrail: public Weapon /*Only the bot will have this weapon*/
+
+/**
+ * @class CrimsonGrail
+ * @brief The CrimsonGrail class is inherited from the Weapon class.
+ * @details This weapon is used exclusively by the bot.
+ */
+class CrimsonGrail : public Weapon
 {
 public:
-    // The constructor will use the constructor of the Weapon class
+    /**
+     * @brief Default constructor that calls the base Weapon constructor.
+     */
     CrimsonGrail();
 
-    // Realisation of the CrimsonGrail weapon enhancement
+    /**
+     * @brief Realization of the CrimsonGrail weapon enhancement.
+     */
     void buffComboMultiplicate() override;
 };
+
 #endif

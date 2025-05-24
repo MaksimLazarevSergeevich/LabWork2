@@ -1,14 +1,30 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file mage.h
+*/
 #ifndef MAGE_H
 #define MAGE_H
+
 #include "hero.h"
-// The Mage class inherited from the Hero class
-class Mage: public Hero
+
+/**
+ * @class Mage
+ * @brief The Mage class inherited from the Hero class.
+ */
+class Mage : public Hero
 {
 public:
-    // Realisation of a special ability Mage
-    void specialAbility(Hero* /*enemyHero*/) override;
+    /**
+     * @brief Realization of the Mage's special ability.
+     * @param enemyHero Pointer to the enemy hero.
+     */
+    void specialAbility(Hero* enemyHero) override;
 
-    // A constructor that will use the constructor of the Hero class
+    /**
+     * @brief Default constructor that calls the base Hero constructor.
+     */
     Mage();
 };
+
 #endif

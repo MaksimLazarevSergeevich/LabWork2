@@ -1,16 +1,28 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file magic_staff.cpp
+*/
 #include "include/magic_staff.h"
 
-// Constructor for the MagicStaff class
-// Initializes the Magic Staff with a name, base damage, and energy cost
-MagicStaff::MagicStaff(): Weapon("Magic staff", 6, 10)
-{}
+/**
+ * @brief Constructor for the MagicStaff class.
+ * 
+ * Initializes the Magic Staff with:
+ * - Name: "Magic staff"
+ * - Damage: 6
+ * - Energy Cost: 10
+ */
+MagicStaff::MagicStaff() : Weapon("Magic staff", 6, 10) {}
 
-// Method to apply a buff to the Magic Staff's damage and energy cost
+/**
+ * @brief Applies a buff to the Magic Staff's damage and energy cost.
+ * 
+ * - Doubles the weapon's current damage
+ * - Increases the energy cost by 8
+ */
 void MagicStaff::buffComboMultiplicate()
 {
-    // Double the current damage of the Magic Staff
     setDamageWeapon(getDamageWeapon() * 2);
-
-    // Increase the energy cost of using the Magic Staff by 8
     setEnergyWeaponCost(getEnergyWeaponCost() + 8);
 }

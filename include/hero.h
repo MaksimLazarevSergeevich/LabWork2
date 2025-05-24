@@ -1,54 +1,102 @@
+/*Maksim Lazarev st128707@student.spbu.ru
+second LabWork*/
+/** 
+* @file hero.h
+*/
 #ifndef HERO_H
 #define HERO_H
-#include "weapon.h" // A hero uses a weapon
 
-//Hero class, where the main methods are implemented
+#include "weapon.h" ///< A hero uses a weapon
+
+/**
+ * @class Hero
+ * @brief Base class representing a hero with combat abilities and attributes.
+ * @details Implements core logic for health, energy, attacks, and weapon usage.
+ */
 class Hero
 {
 private:
-    std::string _name; // Hero's name
-    int _maxHealth; // Maximum health points
-    int _maxEnergy; // Maximum energy points
-    int _defoltDamage; // Default attack damage
-    int _health = _maxHealth; // Current health points
-    int _energy = _maxEnergy; // Current energy points
-    bool _isPlayerGo = false; // Flag to track if it's the player's turn
-    Weapon* _weapon = nullptr;  // Pointer to the hero's equipped weapon
-public:
-    // Constructor to initialize hero's attributes
-    Hero(std::string /*name*/, int /*maxHealth*/, int /*MaxEnergy*/, int /*defoltAttack*/);
+    std::string _name;        ///< Hero's name
+    int _maxHealth;           ///< Maximum health points
+    int _maxEnergy;           ///< Maximum energy points
+    int _defoltDamage;        ///< Default attack damage
+    int _health = _maxHealth; ///< Current health points
+    int _energy = _maxEnergy; ///< Current energy points
+    bool _isPlayerGo = false; ///< Flag to track if it's the player's turn
+    Weapon* _weapon = nullptr;///< Pointer to the hero's equipped weapon
 
-    // Virtual destructor to ensure proper cleanup in derived classes
+public:
+    /**
+     * @brief Constructor to initialize hero's attributes.
+     * @param name Hero's name.
+     * @param maxHealth Maximum health points.
+     * @param maxEnergy Maximum energy points.
+     * @param defoltAttack Default attack damage.
+     */
+    Hero(std::string name, int maxHealth, int maxEnergy, int defoltAttack);
+
+    /**
+     * @brief Virtual destructor to ensure proper cleanup in derived classes.
+     */
     virtual ~Hero();
 
-    // Attack another hero using the equipped weapon
-    void attackWithWeapon(Hero* /*enemyHero*/);
+    /**
+     * @brief Attack another hero using the equipped weapon.
+     * @param enemyHero Pointer to the enemy hero.
+     */
+    void attackWithWeapon(Hero* enemyHero);
 
-    // Perform a default attack without a weapon
-    void defoltAttack(Hero* /*enemyHero*/);
+    /**
+     * @brief Perform a default attack without a weapon.
+     * @param enemyHero Pointer to the enemy hero.
+     */
+    void defoltAttack(Hero* enemyHero);
 
-    // Virtual method for hero's special ability (to be overridden in derived classes)
-    virtual void specialAbility(Hero* /*enemyHero*/);
+    /**
+     * @brief Virtual method for hero's special ability (to be overridden in derived classes).
+     * @param enemyHero Pointer to the enemy hero.
+     */
+    virtual void specialAbility(Hero* enemyHero);
 
-    // Equip a weapon to the hero
-    void equipWeapon(Weapon*);
+    /**
+     * @brief Equip a weapon to the hero.
+     * @param weapon Pointer to the weapon to equip.
+     */
+    void equipWeapon(Weapon* weapon);
 
-    // Take damage and reduce health points
-    void TakeDamage(int);
+    /**
+     * @brief Take damage and reduce health points.
+     * @param amount Amount of damage to take.
+     */
+    void TakeDamage(int amount);
 
-    // Heal the hero by restoring health points
-    void heal(int);
+    /**
+     * @brief Heal the hero by restoring health points.
+     * @param amount Amount of health to restore.
+     */
+    void heal(int amount);
 
-    // Restore hero's energy points
-    void restoreEnergy(int);
+    /**
+     * @brief Restore hero's energy points.
+     * @param amount Amount of energy to restore.
+     */
+    void restoreEnergy(int amount);
 
-    // Spend energy for actions
-    void spendEnergy(int);
+    /**
+     * @brief Spend energy for actions.
+     * @param amount Amount of energy to spend.
+     */
+    void spendEnergy(int amount);
 
-    // Check if the hero is still alive
+    /**
+     * @brief Check if the hero is still alive.
+     * @return True if alive, false otherwise.
+     */
     bool isAlive();
 
-    // Getters
+    /// @name Getters
+    /// @{
+
     int getHealth();
     int getEnergy();
     std::string getName();
@@ -56,8 +104,14 @@ public:
     int getMaxHealth();
     int getMaxEnergy();
     bool getIsPlayerGo();
-    // Setter
-    void setIsPlayerGo(bool);
+
+    /// @}
+
+    /**
+     * @brief Set whether it's the player's turn.
+     * @param state True if it's the player's turn, false otherwise.
+     */
+    void setIsPlayerGo(bool state);
 };
 
 #endif
