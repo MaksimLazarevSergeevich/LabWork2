@@ -2,6 +2,22 @@
 
 ## System Requirements
 
+The project has been tested and developed under the following environment:
+
+### Compiler
+
+- **g++** version: `11.4.0`  
+- Compilation flag: `-std=c++17`
+
+### Libraries
+
+- Standard C++ libraries, including:
+  - `<vector>`
+  - `<random>`
+  - `<iostream>`
+- Unit testing is implemented using **Google Test**:
+  - Header: `<gtest/gtest.h>`
+
 ### Functional Requirements
 
 1. **Hero Selection**  
